@@ -102,19 +102,3 @@ Typical processing times:
 - 1-hour audio file: 5-15 minutes
 - Times may vary based on API load and connection speed
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support
-
-If you encounter any issues:
-1. Check that your OpenAI API key is correctly set
-2. Verify your audio file size is under 25MB
-3. Ensure your audio file is in a supported format
-4. Check your internet connection
-
-For API key issues:
-1. Go to https://platform.openai.com/account/api-keys
-2. Generate a new API key
-3. Update the key in your script
