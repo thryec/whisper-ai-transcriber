@@ -1,104 +1,102 @@
-# Whisper Transcription Tool
+# Audio Compression and Transcription Tool
 
-A Node.js tool that transcribes audio files to text using OpenAI's Whisper API. This tool provides a simple interface for transcribing pre-compressed audio files into text format.
+A Node.js tool that compresses audio files and transcribes them using OpenAI's Whisper API. This tool processes large audio files that need to be transcribed while maintaining good speech recognition quality.
+
+## Features
+
+- Audio compression from M4A to MP3 format
+- Optimized compression settings for speech recognition
+- Audio transcription using OpenAI's Whisper API
+- Support for processing audio segments for large files
+- Output transcription to text file
 
 ## Prerequisites
 
-- Node.js 14.0 or higher
+- Node.js (v14 or higher recommended)
+- FFmpeg
 - OpenAI API key
 
 ## Installation
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/audio-transcription-tool.git
-cd audio-transcription-tool
-```
+1. Install FFmpeg:
+   - **macOS**:
+     ```bash
+     # Using Homebrew
+     brew install ffmpeg
+     ```
+   
+   - **Linux (Ubuntu/Debian)**:
+     ```bash
+     sudo apt update
+     sudo apt install ffmpeg
+     ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+   Verify FFmpeg installation:
+   ```bash
+   ffmpeg -version
+   ```
 
-3. Create a `package.json` file with ES modules support:
-```json
-{
-  "name": "audio-transcription-tool",
-  "version": "1.0.0",
-  "type": "module",
-  "dependencies": {
-    "openai": "^4.0.0"
-  }
-}
-```
+2. Clone this repository:
+   ```bash
+   git clone <repository-url>
+   cd audio-transcription-tool
+   ```
 
-4. Add your OpenAI API key to the script by replacing `'your-api-key-here'` in `transcribe.js` with your actual API key.
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Create a `.env` file in the project root:
+   ```bash
+   touch .env
+   ```
+
+5. Add your OpenAI API key to the `.env` file:
+   ```
+   OPENAI_API_KEY=your_api_key_here
+   ```
 
 ## Usage
 
-### As a Module
+### Compressing Audio
 
-Import and use in your JavaScript file:
+The compression script converts M4A files to optimized MP3 format:
+
+```bash
+node compress.js path/to/your/audio.m4a
+```
+
+This will create a compressed MP3 file with the suffix "_compressed" in the same directory.
+
+### Transcribing Audio
+
+To transcribe a compressed audio file:
+
+```bash
+node transcribe.js path/to/your/compressed.mp3
+```
+
+For large files (>20MB), you can use the segment extraction feature by modifying the duration parameter in `transcribe.js`:
 
 ```javascript
-import transcribeAudio from './transcribe.js';
-
-// Use with automatic file saving
-await transcribeAudio('path/to/audio.mp3', 'output.txt');
-
-// Or just get the transcription text
-const text = await transcribeAudio('path/to/audio.mp3');
+extractAudioSegment("input.mp3", "output_segment.mp3", 300); // 300 seconds = 5 minutes
 ```
 
-### Command Line
+## Configuration
 
-Run directly from command line:
+### Compression Settings
 
-```bash
-# With specified output file
-node transcribe.js path/to/audio.mp3 output.txt
+The audio compression is optimized for speech recognition with the following settings:
+- Bitrate: 64k
+- Sample Rate: 16kHz
+- Channels: Mono
+- Codec: libmp3lame
+- Quality: 3 (good quality while maintaining small file size)
 
-# With auto-generated output filename
-node transcribe.js path/to/audio.mp3
-```
+You can modify these settings in `compress.js` if needed.
 
-### Background Processing
+### Transcription Settings
 
-To keep the script running after closing the terminal:
-
-```bash
-# Using nohup (Linux/Mac)
-nohup node transcribe.js path/to/audio.mp3 output.txt > output.log &
-
-# Using screen (Linux/Mac)
-screen -S transcription
-node transcribe.js path/to/audio.mp3 output.txt
-# Press Ctrl+A then D to detach
-# Use 'screen -r transcription' to reattach
-
-# Using pm2 (cross-platform)
-npm install -g pm2
-pm2 start transcribe.js -- path/to/audio.mp3 output.txt
-```
-
-## Audio File Requirements
-
-- Recommended format: MP3
-- File size limit: 25MB
-- If your file is larger, you'll need to compress it first
-- Recommended audio settings for speech:
-  - Bitrate: 64k
-  - Sample rate: 16kHz
-  - Channels: Mono
-
-## Expected Processing Time
-
-Processing time varies based on:
-- File size
-- Internet connection speed
-- OpenAI API load
-
-Typical processing times:
-- 1-hour audio file: 5-15 minutes
-- Times may vary based on API load and connection speed
+The transcription uses OpenAI's "whisper-1" model with text output format. You can modify the model or response format in `transcribe.js` if needed.
 

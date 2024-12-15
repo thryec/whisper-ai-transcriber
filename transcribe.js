@@ -6,17 +6,17 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-async function main() {
+async function main(inputFile) {
   const transcription = await openai.audio.transcriptions.create({
-    file: fs.createReadStream("astrobot_compressed.mp3"),
+    file: fs.createReadStream(inputFile),
     model: "whisper-1",
     response_format: "text",
   });
 
   console.log(transcription);
-  fs.writeFileSync("transcript.txt", transcription);
+  fs.writeFileSync(outputFile, transcription);
 }
-main();
+main(inputFile, outputFile);
 
 // If your file is larger than 20MB, you'll need to compress it first
 // 5 minutes by default
@@ -32,4 +32,4 @@ const extractAudioSegment = async (inputFile, outputFile, duration = 300) => {
   });
 };
 
-// extractAudioSegment("astrobot_compressed.mp3", "astrobot_5.mp3", 300);
+extractAudioSegment(inputFile, outputFile, 300);
