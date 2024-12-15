@@ -1,0 +1,10 @@
+# env files
+node_modules
+dist
+.env
+.DS_Store
+
+# project files 
+astrobot.m4a 
+astrobot_compressed.mp3
+output.txt
