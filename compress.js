@@ -7,7 +7,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// Compress audio file while maintaining quality
+// Compress audio file to mp3 while maintaining quality
 const compressAudio = async (inputFile, outputFile) => {
   return new Promise((resolve, reject) => {
     ffmpeg(inputFile)

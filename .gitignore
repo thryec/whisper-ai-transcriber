@@ -5,6 +5,6 @@ dist
 .DS_Store
 
 # project files 
-astrobot.m4a 
-astrobot_compressed.mp3
-output.txt
+*.m4a 
+*.mp3
+*.txt
