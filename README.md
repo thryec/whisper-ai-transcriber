@@ -1,7 +1,6 @@
-# Audio Compression and Transcription Tool
+# Whisper Transcription Tool
 
-A Node.js tool that compresses audio files and transcribes them using OpenAI's Whisper API. This tool processes large audio files that need to be transcribed while maintaining good speech recognition quality.
-
+A Node.js tool that compresses audio files and transcribes them using OpenAI's Whisper API.
 ## Features
 
 - Audio compression from M4A to MP3 format
@@ -19,16 +18,8 @@ A Node.js tool that compresses audio files and transcribes them using OpenAI's W
 ## Installation
 
 1. Install FFmpeg:
-   - **macOS**:
      ```bash
-     # Using Homebrew
      brew install ffmpeg
-     ```
-   
-   - **Linux (Ubuntu/Debian)**:
-     ```bash
-     sudo apt update
-     sudo apt install ffmpeg
      ```
 
    Verify FFmpeg installation:
@@ -38,8 +29,8 @@ A Node.js tool that compresses audio files and transcribes them using OpenAI's W
 
 2. Clone this repository:
    ```bash
-   git clone <repository-url>
-   cd audio-transcription-tool
+   git clone https://github.com/thryec/whisper-ai-transcriber.git
+   cd whisper-ai-transcriber
    ```
 
 3. Install dependencies:
